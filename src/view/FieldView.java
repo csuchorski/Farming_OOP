@@ -39,12 +39,14 @@ public class FieldView extends JFrame {
                     Color tileColor;
 
                     // Determine the color of the tile
-                    if (square.hasCarrot) {
+                    if (square.hasCarrots) {
                         tileColor = Color.GREEN; // Tile with carrots is green
-                    } else if (square.isDamaged) {
+                    }
+                    else if (square.isDamaged) {
                         tileColor = Color.RED; // Damaged tile is red
-                    } else {
-                        tileColor = Color.GRAY; // Empty tile is gray
+                    }
+                    else {
+                        tileColor = Color.GRAY;
                     }
 
                     // Draw each tile as a rectangle
@@ -52,6 +54,16 @@ public class FieldView extends JFrame {
                     g.fillRect(i * 50, j * 50, 50, 50);
                     g.setColor(Color.BLACK); // Draw border
                     g.drawRect(i * 50, j * 50, 50, 50);
+                    if (square.hasDog){
+                            g.setColor(Color.BLACK);
+                            g.drawString("D", i * 50 + 50 / 2, j * 50 + 50 / 2);
+
+                        //tileColor = Color.YELLOW; // Empty tile is gray
+                    }
+                    if (square.hasFarmer){
+                        g.setColor(Color.BLACK);
+                        g.drawString("F", i * 50 + 50 / 2, j * 50 + 50 / 2);
+                    }
                 }
             }
         }
