@@ -1,4 +1,4 @@
-package main;
+package model;
 
 public class Field {
     public int size;
@@ -12,5 +12,13 @@ public class Field {
                 squares[i][j] = new Square(new int[]{i,j}, 3);
             }
         }
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Square getSquare(int x, int y) {
+        return squares[x][y];
     }
 }

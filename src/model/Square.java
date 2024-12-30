@@ -1,13 +1,11 @@
-package main;
-
-import java.awt.*;
+package model;
 
 public class Square extends Damageable{
-    boolean hasCarrots;
+    public boolean hasCarrot;
 
     public Square(int[] position, int respawnTime) {
         super(position, respawnTime);
-        this.hasCarrots = false;
+        this.hasCarrot = false;
     }
 
 }

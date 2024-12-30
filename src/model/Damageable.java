@@ -1,9 +1,9 @@
-package main;
+package model;
 
 abstract public class Damageable {
     private int[] position;
     private int repairTime;
-    private boolean isDamaged;
+    public boolean isDamaged;
 
     public Damageable(int[] position, int repairTime) {
         this.position = position;

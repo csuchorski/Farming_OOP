@@ -1,4 +1,4 @@
-package main;
+package model;
 
 public class Rabbit extends Damageable{
     private int turnsEatingLeft;
