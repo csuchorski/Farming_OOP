@@ -1,8 +1,8 @@
 package model;
 
 abstract public class Damageable {
-    private int[] position;
-    private int repairTime;
+    final protected int[] position;
+    final protected int repairTime;
     public boolean isDamaged;
 
     public Damageable(int[] position, int repairTime) {

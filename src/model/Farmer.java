@@ -1,15 +1,68 @@
 package model;
 
-public class Farmer {
+import java.util.random.RandomGenerator;
+
+
+public class Farmer implements Runnable {
+    final private int plantingTime = 2000;
+    final private int moveTime = 1000;
+
     private int[] position;
     private Dog dog;
+    private Field field;
 
-    public Farmer(int[] position, Dog dog) {
+    public Farmer(int[] position, Dog dog, Field field) {
         this.position = position;
         this.dog = dog;
+        this.field = field;
+
+        this.field.squares[position[0]][position[1]].hasFarmer = true;
+
     }
 
-    public void plantCarrots(){}
-    public void spotRabbit(){}
-    public void repairLand(){}
+    public void run() {
+        while (true) {
+            try {
+                Square currentSquare = field.getSquare(position[0], position[1]);
+                if (currentSquare.isDamaged) {
+                    this.repairLand();
+                    Thread.sleep(currentSquare.repairTime);
+                } else if (!currentSquare.hasCarrots) {
+                    this.plantCarrots();
+                    Thread.sleep(this.plantingTime);
+                } else {
+                    this.move();
+                    Thread.sleep(moveTime);
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                break;
+            }
+        }
+    }
+
+    public void plantCarrots() {
+        this.field.squares[this.position[0]][this.position[1]].hasCarrots = true;
+    }
+
+    public void repairLand() {
+        this.field.squares[this.position[0]][this.position[1]].isDamaged = false;
+
+    }
+
+    public void spotRabbit() {
+    }
+
+    public void move() {
+        this.field.squares[position[0]][position[1]].hasFarmer = false;
+
+        int new_x = Math.min(this.field.getSize(),Math.max(0,position[0] + RandomGenerator.getDefault().nextInt(-1,2)));
+        int new_y = Math.min(this.field.getSize(),Math.max(0,position[1] + RandomGenerator.getDefault().nextInt(-1,2)));
+        this.position[0] = new_x;
+        this.position[1] = new_y;
+
+        this.field.squares[position[0]][position[1]].hasFarmer = true;
+
+    }
 }
