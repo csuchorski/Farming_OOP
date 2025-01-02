@@ -48,7 +48,6 @@ public class Farmer implements Runnable {
 
     public void repairLand() {
         this.field.squares[this.position[0]][this.position[1]].isDamaged = false;
-
     }
 
     public void spotRabbit() {
@@ -57,8 +56,11 @@ public class Farmer implements Runnable {
     public void move() {
         this.field.squares[position[0]][position[1]].hasFarmer = false;
 
-        int new_x = Math.min(this.field.getSize(),Math.max(0,position[0] + RandomGenerator.getDefault().nextInt(-1,2)));
-        int new_y = Math.min(this.field.getSize(),Math.max(0,position[1] + RandomGenerator.getDefault().nextInt(-1,2)));
+        int dx = RandomGenerator.getDefault().nextInt(3) - 1;
+        int dy = RandomGenerator.getDefault().nextInt(3) - 1;
+
+        int new_x = Math.min(this.field.getSize()-1,Math.max(0,position[0] + dx));
+        int new_y = Math.min(this.field.getSize()-1,Math.max(0,position[1] + dy));
         this.position[0] = new_x;
         this.position[1] = new_y;
 

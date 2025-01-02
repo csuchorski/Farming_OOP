@@ -6,6 +6,8 @@ public class Square extends Damageable{
     public boolean hasFarmer;
     public boolean hasDog;
 
+    public Rabbit rabbit = null;
+
     public Square(int[] position, int respawnTime) {
         super(position, respawnTime);
         this.hasCarrots = false;

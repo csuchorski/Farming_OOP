@@ -17,17 +17,20 @@ public class Dog implements Runnable {
     public void run() {
         while (true) {
             try {
-                Square currentSquare = field.getSquare(position[0], position[1]);
-                if (currentSquare.hasRabbit) {
-
-                    Thread.sleep(currentSquare.repairTime);
-
-                } else {
-
-                    this.moveRandomly();
-                    Thread.sleep(moveTime);
-
+                synchronized (field.squares) {
+                    Square currentSquare = field.getSquare(position[0], position[1]);
+                    synchronized (currentSquare){
+                        if (currentSquare.hasRabbit) {
+                            this.killRabbit(currentSquare.rabbit);
+                            Thread.sleep(currentSquare.repairTime);
+                        }
+                        else {
+                            this.moveRandomly();
+                            Thread.sleep(moveTime);
+                        }
+                    }
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
                 break;
@@ -49,8 +52,11 @@ public class Dog implements Runnable {
         this.position[1] = new_y;
 
         this.field.squares[position[0]][position[1]].hasDog = true;
-
     }
     public void moveTowardsRabbit(){}
 
+    private void killRabbit(Rabbit rabbit) {
+        rabbit.becomeDead();
+        this.field.squares[position[0]][position[1]].hasRabbit = false;
+    }
 }
