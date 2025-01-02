@@ -21,21 +21,19 @@ public class Rabbit extends Damageable implements Runnable {
                 if (this.isDamaged) {
                     Thread.sleep(this.repairTime);
                     this.respawn();
-                    continue;
                 } else {
-                    synchronized (this.field.squares) {
-                        Square currentSquare = field.getSquare(position[0], position[1]);
-                        synchronized (currentSquare) {
-                            if (currentSquare.hasCarrots) {
-                                this.eatCarrot();
-                                Thread.sleep(this.eatingSpeed);
-                                this.damageLand();
-                                Thread.sleep(this.damagingSpeed);
-                            }
+                    Square currentSquare = field.getSquare(position[0], position[1]);
+                    synchronized (currentSquare) {
+                        if (currentSquare.hasCarrots) {
+                            this.eatCarrot();
+                            Thread.sleep(this.eatingSpeed);
+                            this.damageLand();
+                            Thread.sleep(this.damagingSpeed);
                         }
-                        this.moveRandomly();
-                        Thread.sleep(moveTime);
                     }
+                    this.moveRandomly();
+                    Thread.sleep(moveTime);
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -58,29 +56,29 @@ public class Rabbit extends Damageable implements Runnable {
     }
 
     public void moveRandomly() {
-        synchronized (field.squares) {
-            Square currentSquare = this.field.squares[this.position[0]][this.position[1]];
-            synchronized (currentSquare) {
-                currentSquare.hasRabbit = false;
-                currentSquare.rabbit = null;
-            }
 
-
-            int dx = RandomGenerator.getDefault().nextInt(3) - 1;
-            int dy = RandomGenerator.getDefault().nextInt(3) - 1;
-
-            int new_x = Math.min(this.field.getSize() - 1, Math.max(0, position[0] + dx));
-            int new_y = Math.min(this.field.getSize() - 1, Math.max(0, position[1] + dy));
-            this.position[0] = new_x;
-            this.position[1] = new_y;
-
-            Square newSquare = this.field.squares[new_x][new_y];
-            synchronized (newSquare) {
-                currentSquare.hasRabbit = true;
-                currentSquare.rabbit = this;
-            }
-
+        Square currentSquare = this.field.squares[this.position[0]][this.position[1]];
+        synchronized (currentSquare) {
+            currentSquare.hasRabbit = false;
+            currentSquare.rabbit = null;
         }
+
+
+        int dx = RandomGenerator.getDefault().nextInt(3) - 1;
+        int dy = RandomGenerator.getDefault().nextInt(3) - 1;
+
+        int new_x = Math.min(this.field.getSize() - 1, Math.max(0, position[0] + dx));
+        int new_y = Math.min(this.field.getSize() - 1, Math.max(0, position[1] + dy));
+        this.position[0] = new_x;
+        this.position[1] = new_y;
+
+        Square newSquare = this.field.squares[new_x][new_y];
+        synchronized (newSquare) {
+            newSquare.hasRabbit = true;
+            newSquare.rabbit = this;
+        }
+
+
     }
 
     public void eatCarrot() {

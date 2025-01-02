@@ -17,7 +17,6 @@ public class Dog implements Runnable {
     public void run() {
         while (true) {
             try {
-                synchronized (field.squares) {
                     Square currentSquare = field.getSquare(position[0], position[1]);
                     synchronized (currentSquare){
                         if (currentSquare.hasRabbit) {
@@ -29,7 +28,6 @@ public class Dog implements Runnable {
                             Thread.sleep(moveTime);
                         }
                     }
-                }
 
             } catch (Exception e) {
                 e.printStackTrace();

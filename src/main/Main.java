@@ -16,11 +16,11 @@ public class Main {
     {
         int fieldSize = 10;
         int farmerCount = 6;
-        int rabbitCount = 10;
+        int rabbitCount = 12;
         Field field = new Field(fieldSize);
 
         Vector<Thread> threads = new Vector<>();
-        Map<Rabbit, Thread> rabbitThreadMap = new HashMap<>();
+        //Map<Rabbit, Thread> rabbitThreadMap = new HashMap<>();
         Vector<Dog> dogs = new Vector<>();
         Vector<Farmer> farmers = new Vector<>();
         Vector<Rabbit> rabbits = new Vector<>();
@@ -43,11 +43,11 @@ public class Main {
         for (int i = 0; i < rabbitCount; i++){
             int x = RandomGenerator.getDefault().nextInt(fieldSize);
             int y = RandomGenerator.getDefault().nextInt(fieldSize);
-            Rabbit rabbit = new Rabbit(new int[]{x,y},1000, field);
+            Rabbit rabbit = new Rabbit(new int[]{x,y},3000, field);
             rabbits.add(rabbit);
             Thread rabbitThread = new Thread(rabbits.get(i));
             threads.add(rabbitThread);
-            rabbitThreadMap.put(rabbit, rabbitThread);
+            //rabbitThreadMap.put(rabbit, rabbitThread);
             rabbitThread.start();
         }
 
