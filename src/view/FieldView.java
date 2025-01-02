@@ -56,13 +56,17 @@ public class FieldView extends JFrame {
                     g.drawRect(i * 50, j * 50, 50, 50);
                     if (square.hasDog){
                             g.setColor(Color.BLACK);
-                            g.drawString("D", i * 50 + 50 / 2, j * 50 + 50 / 2);
+                            g.drawString("D", i * 50 + 5, j * 50 + 50 / 2);
 
                         //tileColor = Color.YELLOW; // Empty tile is gray
                     }
                     if (square.hasFarmer){
                         g.setColor(Color.BLACK);
-                        g.drawString("F", i * 50 + 50 / 2, j * 50 + 50 / 2);
+                        g.drawString("F", i * 50 + 25, j * 50 + 50 / 2);
+                    }
+                    if (square.hasRabbit){
+                        g.setColor(Color.BLACK);
+                        g.drawString("R", i * 50 + 40, j * 50 + 50 / 2);
                     }
                 }
             }
