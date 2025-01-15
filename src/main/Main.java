@@ -22,9 +22,6 @@ public class Main {
         Vector<Thread> threads = new Vector<>();
         //Map<Rabbit, Thread> rabbitThreadMap = new HashMap<>();
         Vector<Runnable> entities = new Vector<>();
-        Vector<Dog> dogs = new Vector<>();
-        Vector<Farmer> farmers = new Vector<>();
-        Vector<Rabbit> rabbits = new Vector<>();
 
 
         for (int i = 0; i < farmerCount; i++){
@@ -32,8 +29,6 @@ public class Main {
             int y = RandomGenerator.getDefault().nextInt(fieldSize);
             Dog dog = new Dog(new int[]{x,y}, field);
             Farmer farmer = new Farmer(new int[]{x,y}, dog,field);
-            dogs.add(dog);
-            farmers.add(farmer);
             entities.add(dog);
             entities.add(farmer);
         }
@@ -42,7 +37,6 @@ public class Main {
             int x = RandomGenerator.getDefault().nextInt(fieldSize);
             int y = RandomGenerator.getDefault().nextInt(fieldSize);
             Rabbit rabbit = new Rabbit(new int[]{x,y},3000, field);
-            rabbits.add(rabbit);
             entities.add(rabbit);
         }
 
