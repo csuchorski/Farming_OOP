@@ -16,7 +16,7 @@ public class Farmer implements Runnable {
         this.dog = dog;
         this.field = field;
 
-        this.field.squares[position[0]][position[1]].hasFarmer = true;
+        this.field.getSquare(this.position[0], this.position[1]).hasFarmer = true;
 
     }
 
@@ -24,6 +24,9 @@ public class Farmer implements Runnable {
         while (true) {
             try {
                 Square currentSquare = field.getSquare(position[0], position[1]);
+                if (currentSquare.hasRabbit) {
+                    this.dog.moveTowardsRabbit(this.position[0], position[1]);
+                }
                 if (currentSquare.isDamaged) {
                     this.repairLand();
                     Thread.sleep(currentSquare.repairTime);
@@ -43,18 +46,18 @@ public class Farmer implements Runnable {
     }
 
     public void plantCarrots() {
-        this.field.squares[this.position[0]][this.position[1]].hasCarrots = true;
+        this.field.getSquare(this.position[0], this.position[1]).hasCarrots = true;
     }
 
     public void repairLand() {
-        this.field.squares[this.position[0]][this.position[1]].isDamaged = false;
+        this.field.getSquare(this.position[0], this.position[1]).isDamaged = false;
     }
 
     public void spotRabbit() {
     }
 
     public void move() {
-        this.field.squares[position[0]][position[1]].hasFarmer = false;
+        this.field.getSquare(this.position[0], this.position[1]).hasFarmer = false;
 
         int dx = RandomGenerator.getDefault().nextInt(3) - 1;
         int dy = RandomGenerator.getDefault().nextInt(3) - 1;
@@ -64,7 +67,7 @@ public class Farmer implements Runnable {
         this.position[0] = new_x;
         this.position[1] = new_y;
 
-        this.field.squares[position[0]][position[1]].hasFarmer = true;
+        this.field.getSquare(this.position[0], this.position[1]).hasFarmer = true;
 
     }
 }

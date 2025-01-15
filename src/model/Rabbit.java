@@ -57,7 +57,7 @@ public class Rabbit extends Damageable implements Runnable {
 
     public void moveRandomly() {
 
-        Square currentSquare = this.field.squares[this.position[0]][this.position[1]];
+        Square currentSquare = this.field.getSquare(this.position[0], this.position[1]);
         synchronized (currentSquare) {
             currentSquare.hasRabbit = false;
             currentSquare.rabbit = null;
@@ -72,7 +72,7 @@ public class Rabbit extends Damageable implements Runnable {
         this.position[0] = new_x;
         this.position[1] = new_y;
 
-        Square newSquare = this.field.squares[new_x][new_y];
+        Square newSquare = this.field.getSquare(this.position[0], this.position[1]);
         synchronized (newSquare) {
             newSquare.hasRabbit = true;
             newSquare.rabbit = this;
@@ -82,10 +82,10 @@ public class Rabbit extends Damageable implements Runnable {
     }
 
     public void eatCarrot() {
-        this.field.squares[position[0]][position[1]].hasCarrots = false;
+        this.field.getSquare(this.position[0], this.position[1]).hasCarrots = false;
     }
 
     public void damageLand() {
-        this.field.squares[position[0]][position[1]].isDamaged = true;
+        this.field.getSquare(this.position[0], this.position[1]).isDamaged = true;
     }
 }
